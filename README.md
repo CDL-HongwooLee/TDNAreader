@@ -137,7 +137,7 @@ optional arguments:
 
 ### Output
 
-Output file is generated as {outdir}/{prefix}.TDNA.txt
+Output file is generated as ```{outdir}/{prefix}.TDNA.txt```
 
 Example 
 ```
