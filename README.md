@@ -1,6 +1,6 @@
 # TDNAreader
   
-
+![Pipeline](https://github.com/user-attachments/assets/03d6f6aa-8fde-4780-9d17-79505598d499)
 For any question about TDNAreader, please contact miso5103@snu.ac.kr
 
 ## Dependencies
