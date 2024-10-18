@@ -1,9 +1,10 @@
 # TDNAreader
   
 ![Pipeline](https://github.com/user-attachments/assets/03d6f6aa-8fde-4780-9d17-79505598d499)
+
 For any question about TDNAreader, please contact miso5103@snu.ac.kr
 
-## Dependencies
+## Dependencieshttps://github.com/CDL-HongwooLee/TDNAreader/blob/main/README.md
 python3 >= 3.8
 
 Bowtie2 >= 2.5.1 (https://github.com/BenLangmead/bowtie2)
