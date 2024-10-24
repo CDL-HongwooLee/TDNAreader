@@ -44,14 +44,18 @@ Anaconda install
 
 For single-end sequencing,
 ```
-python3 TDNAreader.py -b sample_rep1.bam,sample_rep2.bam,sample_rep3.bam -t tdna.fa -o ./ -p sample_name -t 3
+python3 TDNAreader.py -b sample_rep1.bam,sample_rep2.bam,sample_rep3.bam -tdna tdna.fa -o ./ -p sample_name -t 3
 ```
 
 For paired-end sequencing,
 ```
-python3 TDNAreader.py -b sample_rep1_1.bam:sample_rep1_2.bam,sample_rep2_1.bam:sample_rep2_2.bam,sample_rep3_1.bam:sample_rep3_2.bam --paired -t tdna.fa -o ./ -p sample_name -t 6
+python3 TDNAreader.py -b sample_rep1_1.bam:sample_rep1_2.bam,sample_rep2_1.bam:sample_rep2_2.bam,sample_rep3_1.bam:sample_rep3_2.bam --paired -tdna tdna.fa -o ./ -p sample_name -t 6
 ```
 
+For example run
+```
+python3 TDNAreader.py -b BAM/SRR13765633_1Aligned.sortedByCoord.out.bam:BAM/SRR13765633_2Aligned.sortedByCoord.out.bam --paired -tdna pROK2.fas -o Results/ -p test -t 2
+```
 
 ## TDNAreader.py
 
