@@ -167,6 +167,6 @@ Sample  Position(REF)   Geneid  Readid  Flag(REF)       Cigar(REF)      Sequence
 Run TDNAreader with example data (available at zenodo, download Examples)
 
 ```
-python3 TDNAreader.py -b BAM/SRR13765632_1Aligned.sortedByCoord.out.bam:BAM/SRR13765632_2Aligned.sortedByCoord.out.bam,BAM/SRR13765633_1Aligned.sortedByCoord.out.bam:BAM/SRR13765633_2Aligned.sortedByCoord.out.bam,BAM/SRR13765634_1Aligned.sortedByCoord.out.bam:BAM/SRR13765634_2Aligned.sortedByCoord.out.bam -o Results/ -bed Reference/Araport11_GTF_genes.Apr2022.rmMC.bed -t 12 -tdna TDNA/pROK2.fas --paired -p 1_floe1-1
+python3 TDNAreader.py -b Examples/BAM/SRR13765632_1Aligned.sortedByCoord.out.bam:Examples/BAM/SRR13765632_2Aligned.sortedByCoord.out.bam,Examples/BAM/SRR13765633_1Aligned.sortedByCoord.out.bam:Examples/BAM/SRR13765633_2Aligned.sortedByCoord.out.bam,Examples/BAM/SRR13765634_1Aligned.sortedByCoord.out.bam:Examples/BAM/SRR13765634_2Aligned.sortedByCoord.out.bam -o Examples/Results/ -bed Examples/Reference/Araport11_GTF_genes.Apr2022.rmMC.bed -t 12 -tdna Examples/TDNA/pROK2.fas --paired -p 1_floe1-1
 ```
 
