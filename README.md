@@ -26,11 +26,6 @@ Github install
 git clone https://github.com/CDL-HongwooLee/TDNAreader
 ```
 
-Anaconda install
-```
-
-```
-
 # Quick start
 
 - TDNAreader requires pre-aligned BAM (SAM) files and TDNA.fa file as inputs.
