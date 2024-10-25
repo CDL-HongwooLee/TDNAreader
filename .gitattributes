@@ -1,0 +1,2 @@
+BAM/SRR13765633_1Aligned.sortedByCoord.out.bam filter=lfs diff=lfs merge=lfs -text
+BAM/SRR13765633_2Aligned.sortedByCoord.out.bam filter=lfs diff=lfs merge=lfs -text
