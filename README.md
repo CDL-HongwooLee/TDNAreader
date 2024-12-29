@@ -4,7 +4,7 @@
 
 For any question about TDNAreader, please contact miso5103@snu.ac.kr
 
-## Dependencieshttps://github.com/CDL-HongwooLee/TDNAreader/blob/main/README.md
+## Dependencies
 python3 >= 3.8
 
 Bowtie2 >= 2.5.1 (https://github.com/BenLangmead/bowtie2)
