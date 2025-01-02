@@ -1,4 +1,4 @@
-# TDNAreader
+# T-DNAreader: Fast and precise identification of T-DNA insertion sites in plant genomes using RNA-sequencing data
   
 ![Pipeline](https://github.com/user-attachments/assets/03d6f6aa-8fde-4780-9d17-79505598d499)
 
