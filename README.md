@@ -1,6 +1,6 @@
 # T-DNAreader: Fast and precise identification of T-DNA insertion sites in plant genomes using RNA-sequencing data
   
-![Pipeline](https://github.com/user-attachments/assets/03d6f6aa-8fde-4780-9d17-79505598d499)
+![Image](https://github.com/user-attachments/assets/19bcfe30-5263-4a20-a16a-eff8704c646a)
 
 For any question about TDNAreader, please contact miso5103@snu.ac.kr
 
