@@ -49,13 +49,6 @@ def confirm_overwrite(outdir: Path, prefix: str):
         print("Aborted by user.")
         sys.exit(1)
 
-#def run_cmd(cmd: list[str], shell: bool=False, silence: str=False):
-#    logger.info(f"Running: {cmd}\n")
-#    if silence:
-#        sp.run(cmd, shell=True, stdout=silence, stderr=silence)
-#    else:
-#        sp.run(cmd, shell=True)
-
 def parse_int_tuple(s: str):
     return tuple(int(x) for x in s.split(','))
 
@@ -703,12 +696,12 @@ def main():
         fastq_files, transgenic_prefixes, control_prefixes = alignment_preprocessing(args.prefix, args.fastq, args.control, args.paired)
         prefixes = transgenic_prefixes+control_prefixes if args.control else transgenic_prefixes
         print(f'Mapping reads to the reference genome...')
-#        if args.wgs:
-#            bowtie2_parallel(fastq_files, prefixes, aligned_dir, args.genome, args.mapq, args.thread)            
-#        else:
-#            star_parallel(fastq_files, prefixes, aligned_dir, args.genome, args.ratio, args.intron, args.thread, args.gzip, args.gtf)
-#            index_bams(prefixes, aligned_dir, tag, args.thread)
-#            print(f'Alignment completed. Index BAM files...')
+        if args.wgs:
+            bowtie2_parallel(fastq_files, prefixes, aligned_dir, args.genome, args.mapq, args.thread)            
+        else:
+            star_parallel(fastq_files, prefixes, aligned_dir, args.genome, args.ratio, args.intron, args.thread, args.gzip, args.gtf)
+            index_bams(prefixes, aligned_dir, tag, args.thread)
+            print(f'Alignment completed. Index BAM files...')
     elif args.bam:
         print(f'\nInput bam files are detected. Skip alignment step.')
         bam_files, transgenic_prefixes, control_prefixes, index = bam_preprocessing(aligned_dir, args.prefix, args.bam, args.control, tag, args.paired)
@@ -721,14 +714,14 @@ def main():
 
     ### Extracting T-DNA sequences from soft clipped reads ###
     print(f'\nExtracting T-DNA sequences from soft-clipped reads...')
-#    prepare_softclipped_sams(prefixes, aligned_dir, tmp_dir, tag, args.thread)
-#    extract_soft_clipped_seq_parallel(prefixes, tmp_dir, args.l1, args.thread)
-#
-#    print(f'\nMapping soft-clipped reads to T-DNA...')
-#    map_softclip_to_tdna_parallel(prefixes, tmp_dir, args.tdna, args.bowtieL, args.thread)
-#
-#    print(f'\nFiltering the chimeric reads...')
-#    filter_sam_parallel(prefixes, tmp_dir, args.l1, args.d, args.l2, args.m, args.thread)
+    prepare_softclipped_sams(prefixes, aligned_dir, tmp_dir, tag, args.thread)
+    extract_soft_clipped_seq_parallel(prefixes, tmp_dir, args.l1, args.thread)
+
+    print(f'\nMapping soft-clipped reads to T-DNA...')
+    map_softclip_to_tdna_parallel(prefixes, tmp_dir, args.tdna, args.bowtieL, args.thread)
+
+    print(f'\nFiltering the chimeric reads...')
+    filter_sam_parallel(prefixes, tmp_dir, args.l1, args.d, args.l2, args.m, args.thread)
     softclip_df = concat_replicates(args.prefix, transgenic_prefixes, tmp_dir, args.paired, False)
     if args.control:
         softclip_df_ctl = concat_replicates(args.prefix, control_prefixes, tmp_dir, args.paired, True)
