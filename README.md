@@ -1,23 +1,37 @@
-# T-DNAreader: Fast and precise identification of T-DNA insertion sites in plant genomes using RNA-sequencing data
+# T-DNAreader: Fast and precise identification of T-DNA insertion sites in plant genomes using RNA sequencing data
   
 ![Image](https://github.com/user-attachments/assets/19bcfe30-5263-4a20-a16a-eff8704c646a)
 
-For any question about TDNAreader, please contact miso5103@snu.ac.kr
+For any question about TDNAreader, please contact hongwoolee@uga.edu
 
 ## Dependencies
+
 python3 >= 3.8
+
+### Core external tools
+STAR >= 2.7.10
 
 Bowtie2 >= 2.5.1 (https://github.com/BenLangmead/bowtie2)
 
 Samtools >= 1.17 (http://www.htslib.org)
 
-Trim_galore >= 0.6.10 (https://github.com/FelixKrueger/TrimGalore)
+BEDTools
 
-Deeptools >= 3.5.1 (https://deeptools.readthedocs.io/en/develop/content/installation.html)
+Trim_galore >= 0.6.10 (https://github.com/FelixKrueger/TrimGalore)
 
 GNU parallel (https://www.gnu.org/software/parallel/)
 
-Required packages: re, io, pathlib, subprocess, argparse, time, multiprocessing, pandas, numpy
+### Visualization / track-processing tools
+
+Deeptools >= 3.5.1 (https://deeptools.readthedocs.io/en/develop/content/installation.html)
+
+pyGenomeTracks
+
+UCSC bigwig utilities: bigWigMerge and bigWigToBedGraph
+
+### Required python packages
+
+Required python modules: pandas, numpy
 
 ## Installation
 Github install
@@ -67,7 +81,7 @@ usage: TDNAreader.py [-h] [-fq FASTQ] [-bam BAM] [-ctl CONTROL] [-o OUTDIR] -p P
                      [-l1 L1] [-l2 L2] [-m M] [-w WINDOW] [-x WEIGHT] [-u THRESHOLD] [-t THREAD] [--paired] [--gzip] [--wgs] [--discordant] [--tmp]
 
     T-DNAreader is a bioinformatics tool designed to identify T-DNA insertion sites (TISs) in plant genomes using NGS data.
-    Contact address: miso5103@snu.ac.kr
+    Contact address: hongwoolee@uga.edu
 
 
 optional arguments:

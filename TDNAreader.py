@@ -1,8 +1,9 @@
-#!/home/hongb/anaconda3/bin/python3
+__version__ = "1.0.1"
+
 """
 T-DNAreader: Identify T-DNA insertion sites (TISs) in plant genomes using RNA-seq data (or WGS).
 Refactored for modularity, safety, and maintainability.
-Contact: miso5103@snu.ac.kr
+Contact: hongwoolee@uga.edu
 """
 import argparse
 import logging
@@ -13,7 +14,7 @@ from multiprocessing import Pool
 import pandas as pd
 import numpy as np
 import re
-from TDNAdrawer import *#rangeBed, make_tdna_bam_bed, bam_to_bigwig_parallel, bigwig_to_bedgraph_parallel, create_track, plot_image
+from TDNAdrawer import *
 import sys
 import os
 from io import StringIO
@@ -75,6 +76,13 @@ Cannot be used with --discordant
     '''(Optional) Control (WT) FASTQ or BAM files (same format as -fq/-bam).
 Use commas to separate replicates and colons for paired-end files.
     ''')
+    parser.add_argument('--paired', dest = 'paired', action='store_true', help = 
+    '''Inputs are from paired-end data.
+Separate pairs with ':'.
+    ''')
+    parser.add_argument('--gzip', dest = 'gzip', action='store_true', help = 
+    '''Specify if FASTQ inputs are gzipped. 
+    ''')
     # Output and naming
     parser.add_argument('-o', dest = 'outdir', default = Path('./'), help = 
     '''Output directory where all output files will be saved.
@@ -91,8 +99,8 @@ Exclude vector backbone sequences outside LB-RB.
     ''')
     parser.add_argument('-g', dest = 'genome', required = False, default = None, help = 
     '''Prefix for your genome index:
-- STAR: path to genomeDir
-- Bowtie2: path prefix to .bt2 files
+- RNA-seq: path to the STAR index
+- WGS: path to the Bowtie2 index
 (e.g., /path/to/genomeDir or /path/to/bowtie2/index_prefix).
     ''')
     parser.add_argument('-bed', dest='bed', default = None, help = 
@@ -170,13 +178,6 @@ Default = 1000
 Default = 1.
     ''')
 
-    parser.add_argument('--paired', dest = 'paired', action='store_true', help = 
-    '''Inputs are from paired-end data.
-Separate pairs with ':'.
-    ''')
-    parser.add_argument('--gzip', dest = 'gzip', action='store_true', help = 
-    '''Specify if FASTQ inputs are gzipped. 
-    ''')
     parser.add_argument('--wgs', dest = 'wgs', default = False, action = 'store_true', help = 
     '''(Optional) The input is whole-genome sequencing data.
     ''')
@@ -186,6 +187,7 @@ If specified, this increases runtime.
     ''')
     parser.add_argument('--tmp', dest = 'keeptmp', default = False, action = 'store_true', help = 
     '''(Optional) Keep intermediate temporary files''')
+    parser.add_argument('--version', action="version", version=f"%(prog)s {__version__}")
 
     return parser.parse_args()
 
@@ -331,7 +333,7 @@ def prepare_softclipped_sams(prefixes: list[str], aligned_dir: Path, tmp_dir: Pa
     parallel_cmd = (
         f"parallel -j {threads} "
         f"\"samtools head {aligned_dir}/{{1}}{tag} > {tmp_dir}/{{1}}.SoftClipped.sam && "
-        f"samtools view {aligned_dir}/{{1}}{tag} | awk '\$6 ~ /S/' >> {tmp_dir}/{{1}}.SoftClipped.sam && "
+        f"samtools view {aligned_dir}/{{1}}{tag} | awk '\\$6 ~ /S/' >> {tmp_dir}/{{1}}.SoftClipped.sam && "
         f"samtools markdup -r {tmp_dir}/{{1}}.SoftClipped.sam {tmp_dir}/{{1}}.SoftClipped.rmdups.sam\" ::: $(echo {stems})"
     )
     run_cmd(parallel_cmd, shell=True)
@@ -685,7 +687,7 @@ def main():
     logger = setup_logger(log_path)
     tag = '.sorted.bam' if args.wgs else 'Aligned.sortedByCoord.out.bam'
 
-    if not Path(args.tdna).is_file() and Path(f'{args.tdna}.1.bt2').is_file():
+    if (not Path(args.tdna).is_file()) or (not Path(f'{args.tdna}.1.bt2').is_file()):
         print(f'### No T-DNA file or its bowtie2 index detected.  : {args.tdna}')
         sys.exit()
     else:
